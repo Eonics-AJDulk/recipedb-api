@@ -58,7 +58,7 @@ public class RecipeController {
     }
 
     @GetMapping("/update")
-    public void updateRecipe(
+    public boolean updateRecipe(
             @RequestParam(name = "name") String name,
             @RequestParam(name = "vegetarian") boolean vegetarian,
             @RequestParam(name = "servings") int servings,
@@ -66,13 +66,13 @@ public class RecipeController {
             @RequestParam(name = "instructions") String instructions
     ) {
         Recipe recipe = new Recipe(name, vegetarian, servings, ingredients, instructions);
-        recipeManager.updateRecipe(name, recipe);
+        return recipeManager.updateRecipe(name, recipe);
     }
 
     @GetMapping("/remove")
-    public void removeRecipe(
+    public boolean removeRecipe(
             @RequestParam(name = "name") String name
     ) {
-        recipeManager.removeRecipe(name);
+        return recipeManager.removeRecipe(name);
     }
 }

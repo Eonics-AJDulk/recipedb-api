@@ -31,6 +31,19 @@ The following endpoints are available:
 - GET /recipes/delete - Deletes an existing recipe.
 - GET /recipes/count - Returns the number of recipes in the list of recipes.
 
+Example request:
+```http://localhost:8080/recipes/add?name=RecipeName&vegetarian=false&servings=4&ingredient=Ingredient1&ingredient=Ingredient2&instructions=Instructions```
+
+The following query parameters are available:
+
+- name - The name of the recipe.
+- vegetarian - Whether the recipe is vegetarian (true/false).
+- servings - The number of servings the recipe makes.
+- ingredient - An ingredient in the recipe (can be specified multiple times).
+- instructions - The instructions for the recipe.
+
+The add, update, and delete endpoints return a true or false indicating whether the operation was successful.
+
 ## Contributing
 
 If you want to contribute to this project, please follow these steps:
@@ -44,3 +57,17 @@ If you want to contribute to this project, please follow these steps:
 ## License
 
 This project is released into the public domain.
+
+## Considerations
+
+This project was created as a coding challenge for a job interview.
+Since this project is a simple application, I decided to use Java, Maven and Spring Boot.
+I chose these technologies because:
+
+- they are familiar to me and I knew I could get the project up and running quickly.
+- they are commonly used in the industry and I wanted to demonstrate my knowledge of them.
+
+I chose not to implement persistence because I wanted to focus on the core functionality of the application.
+I also wanted to keep the project simple and not introduce unnecessary complexity.
+
+
