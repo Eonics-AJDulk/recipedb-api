@@ -1,11 +1,13 @@
 package nl.eonics.antony.dendulk.manager;
 
 import nl.eonics.antony.dendulk.model.Recipe;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+@Service
 public class RecipeManager {
     private final List<Recipe> recipes = new ArrayList<>();
 
@@ -38,11 +40,6 @@ public class RecipeManager {
         recipes.remove(recipe);
     }
 
-    //    public List<Recipe> fetchRecipesByVegetarian(boolean vegetarian) {
-//        return recipes.stream()
-//                .filter(recipe -> recipe.vegetarian() == vegetarian)
-//                .toList();
-//    }
     public List<Recipe> fetchRecipesByFilter(Predicate<Recipe> filter) {
         return recipes.stream()
                 .filter(filter)
