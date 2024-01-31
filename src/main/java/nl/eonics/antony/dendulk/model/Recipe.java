@@ -2,38 +2,18 @@ package nl.eonics.antony.dendulk.model;
 
 import java.util.List;
 
-public class Recipe {
-    private String name;
-    private boolean vegetarian;
-    private int servings;
-    private List<String> ingredients;
-    private String instructions;
+public record Recipe(String name, boolean vegetarian, int servings, List<String> ingredients, String instructions) {
 
-    public Recipe(String name, boolean vegetarian, int servings, List<String> ingredients, String instructions) {
-        this.name = name;
-        this.vegetarian = vegetarian;
-        this.servings = servings;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Recipe recipe) {
+            return name.equals(recipe.name) &&
+                    vegetarian == recipe.vegetarian &&
+                    servings == recipe.servings &&
+                    ingredients.equals(recipe.ingredients) &&
+                    instructions.equals(recipe.instructions);
+        }
+        return false;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public boolean isVegetarian() {
-        return vegetarian;
-    }
-
-    public int getServings() {
-        return servings;
-    }
-
-    public List<String> getIngredients() {
-        return ingredients;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
 }

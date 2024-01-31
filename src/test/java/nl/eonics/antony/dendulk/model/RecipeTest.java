@@ -23,11 +23,11 @@ public class RecipeTest {
 
         // Assert
         assertNotNull(recipe);
-        assertEquals(name, recipe.getName());
-        assertEquals(vegetarian, recipe.isVegetarian());
-        assertEquals(servings, recipe.getServings());
-        assertEquals(ingredients, recipe.getIngredients());
-        assertEquals(instructions, recipe.getInstructions());
+        assertEquals(name, recipe.name());
+        assertEquals(vegetarian, recipe.vegetarian());
+        assertEquals(servings, recipe.servings());
+        assertEquals(ingredients, recipe.ingredients());
+        assertEquals(instructions, recipe.instructions());
     }
 
     @Test
@@ -40,6 +40,6 @@ public class RecipeTest {
 
         Recipe recipe = new Recipe(name, vegetarian, servings, ingredients, instructions);
 
-        assertEquals(vegetarian, recipe.isVegetarian());
+        assertEquals(vegetarian, recipe.vegetarian());
     }
 }
