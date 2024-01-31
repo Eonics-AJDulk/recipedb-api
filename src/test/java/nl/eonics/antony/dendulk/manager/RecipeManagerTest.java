@@ -17,58 +17,91 @@ public class RecipeManagerTest {
     @Test
     void testRecipeManagerCreation() {
         RecipeManager recipeManager = new RecipeManager();
+
         assertNotNull(recipeManager);
     }
 
     @Test
     void testAddRecipe_OneRecipeAdded() {
-        // Arrange
         var recipeManager = new RecipeManager();
         var mockRecipe = Mockito.mock(Recipe.class);
 
-        recipeManager.addRecipe(mockRecipe);
+        var success = recipeManager.addRecipe(mockRecipe);
+
+        assertTrue(success);
+        assertEquals(1, recipeManager.getRecipesCount());
+    }
+
+    @Test
+    void testAddRecipe_TwoRecipesAdded() {
+        var recipeManager = new RecipeManager();
+        var mockRecipe1 = Mockito.mock(Recipe.class);
+        var mockRecipe2 = Mockito.mock(Recipe.class);
+
+        Mockito.when(mockRecipe1.name()).thenReturn("Recipe 1");
+        Mockito.when(mockRecipe2.name()).thenReturn("Recipe 2");
+
+        var success1 = recipeManager.addRecipe(mockRecipe1);
+        var success2 = recipeManager.addRecipe(mockRecipe2);
+
+        assertTrue(success1);
+        assertTrue(success2);
+        assertEquals(2, recipeManager.getRecipesCount());
+    }
+
+    @Test
+    void testAddRecipe_DuplicateRecipeAdded() {
+        var recipeManager = new RecipeManager();
+        var mockRecipe1 = Mockito.mock(Recipe.class);
+        var mockRecipe2 = Mockito.mock(Recipe.class);
+
+        Mockito.when(mockRecipe1.name()).thenReturn("Recipe 1");
+        Mockito.when(mockRecipe2.name()).thenReturn("Recipe 1");
+        recipeManager.addRecipe(mockRecipe1);
+
+        var duplicateFound = recipeManager.addRecipe(mockRecipe2);
+
+        assertFalse(duplicateFound);
         assertEquals(1, recipeManager.getRecipesCount());
     }
 
     @Test
     void testUpdateRecipe_UpdatedRecipeRetrieved() {
-        // Arrange
         var recipeManager = new RecipeManager();
         var originalRecipe = new Recipe("Original Recipe", true, 2, List.of("ingredient1", "ingredient2"), "Instructions");
         var updatedRecipe = new Recipe("Updated Recipe", false, 4, List.of("newIngredient1", "newIngredient2"), "New Instructions");
 
-        recipeManager.addRecipe(originalRecipe);
-        recipeManager.updateRecipe(originalRecipe.name(), updatedRecipe);
-
+        var added = recipeManager.addRecipe(originalRecipe);
+        var updated = recipeManager.updateRecipe(originalRecipe.name(), updatedRecipe);
         var retrievedRecipe = recipeManager.getRecipe(updatedRecipe.name());
+
+        assertTrue(added);
+        assertTrue(updated);
         assertEquals(updatedRecipe, retrievedRecipe);
     }
 
     @Test
     void testGetRecipe_ExistingRecipeRetrieved() {
-        // Arrange
         var recipeManager = new RecipeManager();
-
         recipeManager.addRecipe(RECIPE1);
 
         var retrievedRecipe = recipeManager.getRecipe(RECIPE1.name());
+
         assertEquals(RECIPE1, retrievedRecipe);
     }
 
     @Test
     void testGetRecipe_NotFound() {
-        // Arrange
         var recipeManager = new RecipeManager();
-
         recipeManager.addRecipe(RECIPE1);
 
         var retrievedRecipe = recipeManager.getRecipe("Not Found");
+
         assertNull(retrievedRecipe);
     }
 
     @Test
     void testGetRecipesCount_NoRecipes() {
-        // Arrange
         var recipeManager = new RecipeManager();
 
         assertEquals(0, recipeManager.getRecipesCount());
@@ -76,7 +109,6 @@ public class RecipeManagerTest {
 
     @Test
     void testGetRecipesCount_OneRecipeAdded() {
-        // Arrange
         var recipeManager = new RecipeManager();
 
         recipeManager.addRecipe(RECIPE1);
@@ -86,7 +118,6 @@ public class RecipeManagerTest {
 
     @Test
     void testGetRecipesCount_TwoRecipesAdded() {
-        // Arrange
         var recipeManager = new RecipeManager();
 
         recipeManager.addRecipe(RECIPE1);
@@ -100,8 +131,9 @@ public class RecipeManagerTest {
         var recipeManager = new RecipeManager();
 
         recipeManager.addRecipe(RECIPE1);
-        recipeManager.removeRecipe(RECIPE1.name());
+        var removed = recipeManager.removeRecipe(RECIPE1.name());
 
+        assertTrue(removed);
         assertEquals(0, recipeManager.getRecipesCount());
     }
 
@@ -110,8 +142,9 @@ public class RecipeManagerTest {
         var recipeManager = new RecipeManager();
 
         recipeManager.addRecipe(RECIPE1);
-        recipeManager.removeRecipe("Not Found");
+        var removed = recipeManager.removeRecipe("Not Found");
 
+        assertFalse(removed);
         assertEquals(1, recipeManager.getRecipesCount());
     }
 

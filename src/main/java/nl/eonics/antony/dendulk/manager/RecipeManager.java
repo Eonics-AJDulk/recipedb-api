@@ -15,17 +15,26 @@ public class RecipeManager {
         return recipes.size();
     }
 
-    public void addRecipe(Recipe recipe) {
+    public boolean addRecipe(Recipe recipe) {
+        // Check if a recipe with the same name already exists
+        if (getRecipe(recipe.name()) != null) {
+            // Recipe with the same name already exists
+            return false;
+        }
+
+        // Add the new recipe
         recipes.add(recipe);
+        return true;
     }
 
-    public void updateRecipe(String recipeName, Recipe updatedRecipe) {
+    public boolean updateRecipe(String recipeName, Recipe updatedRecipe) {
         Recipe existingRecipe = getRecipe(recipeName);
-
         if (existingRecipe != null) {
             int index = recipes.indexOf(existingRecipe);
             recipes.set(index, updatedRecipe);
+            return true;
         }
+        return false;
     }
 
     Recipe getRecipe(String recipeName) {
@@ -35,9 +44,13 @@ public class RecipeManager {
                 .orElse(null);
     }
 
-    public void removeRecipe(String name) {
+    public boolean removeRecipe(String name) {
         Recipe recipe = getRecipe(name);
-        recipes.remove(recipe);
+        if (recipe != null) {
+            recipes.remove(recipe);
+            return true;
+        }
+        return false;
     }
 
     public List<Recipe> fetchRecipesByFilter(Predicate<Recipe> filter) {
