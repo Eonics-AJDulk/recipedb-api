@@ -70,4 +70,22 @@ I chose these technologies because:
 I chose not to implement persistence because I wanted to focus on the core functionality of the application.
 I also wanted to keep the project simple and not introduce unnecessary complexity.
 
+If I were to continue working on this project, I would implement persistence using a database.
 
+## Project Structure
+
+The project is structured as follows:
+
+- src/main/java/nl/eonics/antony/dendulk:
+    - config - Contains the configuration classes.
+    - controller - Contains the controller classes.
+    - manager - Contains the manager classes.
+    - model - Contains the model classes.
+    - App - The main application class.
+
+- src/test/java/nl/eonics/antony/dendulk:
+    - config - Contains the Unit Tests for configuration classes.
+    - controller - Contains the Integration Tests for project.
+    - manager - Contains the Unit Tests for manager classes.
+    - model - Contains the Unit Tests for model classes.
+    - AppTest - The Unit Test for the main application class.
